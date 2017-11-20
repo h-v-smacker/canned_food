@@ -1,7 +1,7 @@
 # Canned Food
 
-This mod introduces a variety of canned foods to add some pleasant variety into the available
-assrtment of foods and item uses. It relies on the glass bottle from the default vessels mod,
+This mod introduces a number of canned foods to add some pleasant variety into the available
+assortment of foods and item uses. It relies on the glass bottle from the default vessels mod,
 giving this otherwise little used item a considerable purpose.
 
 All products are defined by shapless recipes, and yield items which can be placed in the
