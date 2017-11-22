@@ -230,8 +230,15 @@ for product, def in pairs(canned_food_definitions) do
 			-- to be available in vanilla game (and mushrooms are the guaranteed
 			-- regular - not sweet - canned food)
 			local ingredients = {"vessels:glass_bottle"}
+			local max = 8
 			if def.sugar then
 				table.insert(ingredients, "farming:sugar")
+				max = 7
+			end
+			-- prevent creation of a recipe with more items than there are slots
+			-- left in the 9-tile craft grid
+			if def.amount > max then 
+				def.amount = max 
 			end
 			for i=1,def.amount do
 				table.insert(ingredients, def.obj_name)
