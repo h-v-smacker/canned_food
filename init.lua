@@ -185,7 +185,7 @@ local canned_food_definitions = {
 		found_in = "mobs_animal",
 		obj_name = "mobs:honey",
 		orig_nutritional_value = 4,
-		amount = 3,
+		amount = 4,
 		sugar = false
 	},
 
@@ -217,12 +217,9 @@ for product, def in pairs(canned_food_definitions) do
 			                 dig_immediate = 3, 
 			                 attached_node = 1 },
 				-- canned food prolongs shelf life IRL, but in minetest food never
-				-- goes bad. Instead, we will reward the effort with 2x higher
-				-- nutritional value, even if that's not realistic.
-				-- when (and if) the 'amount' could be taken into account, the 
-				-- rate could also be adjusted
+				-- goes bad. Here, we increase the nutritional value instead.
 				on_use = minetest.item_eat(
-						math.floor (def.orig_nutritional_value * 2)
+						math.floor (def.orig_nutritional_value * def.amount * 0.33)
 						+ (def.sugar and 1 or 0), "vessels:glass_bottle"),
 				-- the empty bottle stays, of course
 				sounds = default.node_sound_glass_defaults(),
@@ -232,21 +229,18 @@ for product, def in pairs(canned_food_definitions) do
 			-- except for apple: there should be at least 1 jam guaranteed
 			-- to be available in vanilla game (and mushrooms are the guaranteed
 			-- regular - not sweet - canned food)
+			local ingredients = {"vessels:glass_bottle"}
 			if def.sugar then
-				minetest.register_craft({
-					type = "shapeless",
-					output = "canned_food:" .. product,
-					recipe = {"vessels:glass_bottle", "farming:sugar",
-						def.obj_name},
-				})
-			else 
-				minetest.register_craft({
-					type = "shapeless",
-					output = "canned_food:" .. product,
-					recipe = {"vessels:glass_bottle", 
-						def.obj_name},
-				})
+				table.insert(ingredients, "farming:sugar")
 			end
+			for i=1,def.amount do
+				table.insert(ingredients, def.obj_name)
+			end
+			minetest.register_craft({
+				type = "shapeless",
+				output = "canned_food:" .. product,
+				recipe = ingredients
+			})
 		end
 	end
 end

@@ -8,9 +8,12 @@ All products are defined by shapless recipes, and yield items which can be place
 real world. Although the cans with non-symmetrical items on labels look good only from
 half of the angles.
 
-The recipes follow the scheme of "glass bottle" + "produce" [ + "sugar" ]
+The recipes follow the scheme of "glass bottle" + "produce" × "amount" [ + "sugar" ]
 
-The default 4 items do not require sugar, even though 3 of those are jams and probably 
+The amount of ingredients differs, roughly based on the original nutritional value of
+the items, so that you'd need more less nutricious items to fill a mason jar.
+
+The default 4 recipes do not require sugar, even though 3 of those are jams and probably 
 would taste horribly IRL without sugar:
 * Apple jam
 * Canned brown mushrooms
@@ -22,6 +25,7 @@ canning also turns two othwerise inedible objects (in game - such jams do exist 
 
 Ethereal and farming (redo) mods introduce items that can be canned, too. 
 Some of them (jams) require sugar as the third ingredient. So some of them require both mods.
+There also is a jar of honey, which requires honey from mobs/mobs_animal mod.
 
 The mason jars with canned food can be put into vessel storage shelves. Or put on display 
 just like the glass vessels can, and destroyed by hand (retreiving the item).
