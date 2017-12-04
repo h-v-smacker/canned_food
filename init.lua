@@ -14,6 +14,7 @@
 		orig_nutritional_value = self-explanatory
 		amount = how many objects are needed to fill a bottle /not implemented/
 		sugar = boolean, set if needs sugar (jams) or not
+		transforms = name of the product it turns into if left on a shelf
 	}
 	image files for items must follow the scheme "internal_name_of_the_product.png"
 ]]
@@ -49,7 +50,8 @@ local canned_food_definitions = {
 		obj_name = "flowers:mushroom_brown",
 		orig_nutritional_value = 1,
 		amount = 5,
-		sugar = false
+		sugar = false,
+		transforms = "Salted mushrooms"
 	},
 	orange_jam = {
 		proper_name = "Orange jam",
@@ -74,6 +76,15 @@ local canned_food_definitions = {
 		orig_nutritional_value = 1,
 		amount = 5,
 		sugar = true
+	},
+	canned_onion = {
+		proper_name = "Canned onions",
+		found_in = "ethereal",
+		obj_name = "ethereal:wild_onion_plant",
+		orig_nutritional_value = 2,
+		amount = 4,
+		sugar = false,
+		transforms = "Pickled onions"
 	},
 	blueberry_jam = {
 		proper_name = "Blueberry jam",
@@ -121,24 +132,28 @@ local canned_food_definitions = {
 		obj_name = "farming:carrot",
 		orig_nutritional_value = 4,
 		amount = 3,
-		sugar = false
+		sugar = false,
+		transforms = "Pickled carrot sticks"
 	},
--- 	canned_potato = {
--- 		proper_name = "Canned potatoes",
--- 		found_in = "farming",
--- 		obj_name = "farming:potato",
--- 		orig_nutritional_value = 1,
--- 		amount = 5,
--- 		sugar = false
--- 	},
+	canned_potato = {
+		proper_name = "Canned potatoes",
+		found_in = "farming",
+		obj_name = "farming:potato",
+		orig_nutritional_value = 1,
+		amount = 5,
+		sugar = false,
+		-- a rare thing, apparently
+		transforms = "Mexican pickled potatoes"
+	},
 	canned_cucumber = {
-		-- aka pickles
-		proper_name = "Pickles",
+		proper_name = "Canned cucumbers",
 		found_in = "farming",
 		obj_name = "farming:cucumber",
 		orig_nutritional_value = 4,
 		amount = 3,
-		sugar = false
+		sugar = false,
+		-- one just cannot simply make the pickles
+		transforms = "Pickles"
 	},
 	canned_tomato = {
 		proper_name = "Canned tomatoes",
@@ -146,7 +161,8 @@ local canned_food_definitions = {
 		obj_name = "farming:tomato",
 		orig_nutritional_value = 4,
 		amount = 3,
-		sugar = false
+		sugar = false,
+		transforms = "Marinated tomatoes"
 	},
 	canned_corn = {
 		proper_name = "Canned corn",
@@ -163,6 +179,15 @@ local canned_food_definitions = {
 		orig_nutritional_value = 1,
 		amount = 6,
 		sugar = false
+	},
+	canned_chili_pepper = {
+		proper_name = "Canned chili pepper",
+		found_in = "farming",
+		obj_name = "farming:chili_pepper",
+		orig_nutritional_value = 1,
+		amount = 6,
+		sugar = false,
+		transforms = "Pickled chili pepper"
 	},
 	canned_coconut = {
 		proper_name = "Canned coconut",
@@ -195,6 +220,7 @@ local canned_food_definitions = {
 -- creating all objects with one universal scheme
 for product, def in pairs(canned_food_definitions) do
 	if minetest.get_modpath(def.found_in) then
+	--if minetest.global_exists(def.found_in) then
 		if def.sugar and minetest.get_modpath("farming") or not def.sugar then
 			
 			-- introducing a new item, a bit more nutricious than the source 
@@ -224,6 +250,55 @@ for product, def in pairs(canned_food_definitions) do
 				-- the empty bottle stays, of course
 				sounds = default.node_sound_glass_defaults(),
 			})
+			
+			-- Some products involve marinating or salting, however there is no salt
+			-- or vingerar in minetest; instead we imitate this more complex process
+			-- by putting the jar on a wooden shelf in a dark room for a long while.
+			-- The effort is rewarded accordingly.
+			if (def.transforms) then
+				
+				minetest.register_node("canned_food:" .. product .."_plus", {
+					description = def.transforms,
+					drawtype = "plantlike",
+					tiles = {product .. ".png^paper_lid_cover.png"},
+					inventory_image = product .. ".png^paper_lid_cover.png",
+					wield_image = product .. ".png^paper_lid_cover.png",
+					paramtype = "light",
+					is_ground_content = false,
+					walkable = false,
+					selection_box = {
+						type = "fixed",
+						fixed = {-0.25, -0.5, -0.25, 0.25, 0.3, 0.25}
+					},
+					groups = { canned_food = 1, 
+						vessel = 1, 
+						dig_immediate = 3, 
+						attached_node = 1,
+						not_in_creative_inventory = 1 },
+					-- the reward for putting the food in a cellar is even greater 
+					-- than for merely canning it.
+					on_use = minetest.item_eat(
+							(math.floor(def.orig_nutritional_value * def.amount * 0.33)
+							+ (def.sugar and 1 or 0))*2, "vessels:glass_bottle"),
+					-- the empty bottle stays, of course
+					sounds = default.node_sound_glass_defaults(),
+				})
+				
+				minetest.register_abm ({
+					label = def.proper_name .. " transformation",
+					nodenames = {"canned_food:" .. product},
+					neighbors = {"group:wood"},
+					-- chances might need tweaking though
+					interval = 180,
+					chance = 10,
+					action = function(pos)
+						if minetest.get_node_light(pos) < 11 then
+							minetest.set_node(pos, {name = "canned_food:" .. product .."_plus"})
+						end
+					end,
+				})
+				
+			end
 			
 			-- a family of shapeless recipes, with sugar for jams
 			-- except for apple: there should be at least 1 jam guaranteed
