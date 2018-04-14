@@ -197,6 +197,14 @@ local canned_food_definitions = {
 		amount = 5,
 		sugar = false
 	},
+	pine_nuts_jar = {
+		proper_name = "A Jar of Pine Nuts",
+		found_in = "ethereal",
+		obj_name = "ethereal:pine_nuts",
+		orig_nutritional_value = 1,
+		amount = 8,
+		sugar = false
+	},
 	canned_pumpkin = {
 		proper_name = "Canned pumpkin puree",
 		found_in = "farming",
