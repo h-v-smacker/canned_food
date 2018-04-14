@@ -198,7 +198,7 @@ local canned_food_definitions = {
 		sugar = false
 	},
 	pine_nuts_jar = {
-		proper_name = "A Jar of Pine Nuts",
+		proper_name = "A Jar of pine nuts",
 		found_in = "ethereal",
 		obj_name = "ethereal:pine_nuts",
 		orig_nutritional_value = 1,
@@ -246,6 +246,14 @@ local canned_food_definitions = {
 		amount = 8,
 		sugar = false,
 		transforms = "Pickled garlic cloves"
+	},
+	canned_peas = {
+		proper_name = "Canned peas",
+		found_in = "farming",
+		obj_name = "farming:peas",
+		orig_nutritional_value = 1,
+		amount = 8,
+		sugar = false,
 	},
 }
 
