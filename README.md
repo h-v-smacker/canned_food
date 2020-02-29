@@ -14,11 +14,13 @@ The amount of ingredients differs, roughly based on the original nutritional val
 the items, so that you'd need more less nutricious items to fill a mason jar.
 
 The default 4 recipes do not require sugar, even though 3 of those are jams and probably 
-would taste horribly IRL without sugar:
+would taste horribly IRL without sugar. With 5.0, an extra recipe was added for "wild"
+blueberry (the berries that reappear on cubic bushes), making it 5 default recipes in total:
 * Apple jam
 * Canned brown mushrooms
 * Rose petal jam
 * Dandelion jam
+* Wild blueberry jam
 
 This is to guarantee that they will always be available in vanilla game. As you can notice,
 canning also turns two othwerise inedible objects (in game - such jams do exist IRL) into food.
