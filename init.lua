@@ -104,6 +104,14 @@ local canned_food_definitions = {
 		sugar = false,
 		transforms = "Pickled wild onions"
 	},
+	blueberry_jam = {
+		proper_name = "Blueberry jam",
+		found_in = "farming",
+		obj_name = "farming:blueberries",
+		orig_nutritional_value = 1,
+		amount = 6,
+		sugar = true
+	},
 	blackberry_jam = {
 		proper_name = "Blackberry jam",
 		found_in = "farming",
