@@ -29,6 +29,8 @@ Ethereal and farming (redo) mods introduce items that can be canned, too.
 Some of them (jams) require sugar as the third ingredient. So some of them require both mods.
 There also is a jar of honey, which requires honey from mobs/mobs_animal mod.
 
+![The Riches Untold](https://github.com/h-v-smacker/canned_food/blob/master/inv_screenshot.png)
+
 The mason jars with canned food can be put into vessel storage shelves. Or put on display 
 just like the glass vessels can, and destroyed by hand (retreiving the item).
 
@@ -36,7 +38,9 @@ For some of the varieties this operation isn't just interior decoration. A numbe
 will turn into a "better" variety if left in a dark (10 or less light level) place on wooden
 shelves. For example, canned tomatoes will become marinated tomatoes. This operation rewards
 the player with twice the nutritional amount compared to the regular version, and the 
-resulting products are marked by a red&white checkered paper cover over the lid.
+resulting products are marked by a red&white checkered paper cover over the lid. And by 
+"left on wooden shelf" we mean quite literally — place them on a wooden surface in a dark place.
+Basically, build a cellar.
 
 The benefit of canning the food is higher nutritional value (since shelf life is irrelevant
 in minetest game, where food never goes bad), this is a "reward" for applying the effort
